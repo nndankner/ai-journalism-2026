@@ -7,7 +7,7 @@
 <meta name="description" content="עיתונות בעידן ה־AI: מעצבים את כללי המשחק. כנס על מדיניות השימוש בבינה מלאכותית במערכות חדשות, 2.12.2026, אוניברסיטת תל אביב.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@500;900&family=Assistant:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Rubik:wght@700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@500;900&family=Assistant:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Rubik:wght@700&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap">
 <style>
 /* =========================================================
    עיצוב: כל הצבעים והפונטים מוגדרים כאן.
@@ -32,7 +32,7 @@
   --panel-dot: #e4e8f0;
   --panel-error: #d32f2f;
 
-  --font-body: "Assistant", "Segoe UI", Arial, sans-serif;
+  --font-body: "IBM Plex Sans Hebrew", "Assistant", "Segoe UI", Arial, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
   --font-dot: "Doto", "IBM Plex Mono", ui-monospace, monospace; /* רק לאותיות לועזיות ומספרים */
 }
@@ -179,7 +179,7 @@ body {
 
 .invite { margin: 48px auto 0; text-align: center; display: grid; justify-items: center; }
 .invite .mono { color: var(--muted); font-size: 12px; padding-top: 6px; }
-.invite p { margin: 0; width: 100%; font-size: 19px; line-height: 1.75; color: var(--muted); max-width: 66ch; text-wrap: balance; }
+.invite p { margin: 0; width: 100%; font-size: 19px; line-height: 1.75; color: var(--muted); max-width: 960px; text-wrap: pretty; }
 .invite p b { color: var(--fg); font-weight: 700; }
 
 /* פס נע של נושאי הכנס */
@@ -188,7 +188,7 @@ body {
           mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
 .ticker-track { display: flex; width: max-content; animation: tick 40s linear infinite; }
 .ticker span { display: inline-flex; align-items: center; gap: 28px; padding: 16px 14px; white-space: nowrap;
-  font-size: clamp(20px, 2.4vw, 30px); font-weight: 800; }
+  font-size: clamp(20px, 2.4vw, 30px); font-weight: 700; }
 .ticker span::after { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
 .ticker:hover .ticker-track { animation-play-state: paused; }
 @keyframes tick { from { transform: translateX(0); } to { transform: translateX(50%); } }
@@ -197,36 +197,40 @@ body {
 .sessions-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin: 64px 0 16px; }
 .sessions-head h3 { margin: 0; font-size: clamp(24px, 2.8vw, 32px); font-weight: 800; scroll-margin-top: 24px; }
 .sessions-head .mono { color: var(--muted); font-size: 12px; }
-.sessions { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+.sessions { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
   border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: var(--panel); }
-.session { position: relative; display: grid; grid-template-rows: auto 1fr auto; gap: 18px; min-height: 340px; padding: 24px 22px 22px; min-width: 0;
+.session { position: relative; display: grid; grid-template-rows: auto auto 1fr; align-content: start; gap: 14px; min-height: 0; padding: 28px 30px 30px; min-width: 0;
   transition: background-color .25s, color .25s; }
-.session + .session { border-inline-start: 1px solid var(--line); }
+.session:nth-child(even) { border-inline-start: 1px solid var(--line); }
+.session:nth-child(n+3) { border-top: 1px solid var(--line); }
 .session .dotfont { font-size: 64px; line-height: .9; color: var(--accent); direction: ltr; text-align: right; transition: color .25s; }
-.session h3 { margin: 0; align-self: end; min-height: 2.4em; display: flex; align-items: flex-end; font-size: clamp(21px, 1.9vw, 25px); line-height: 1.2; font-weight: 800; }
-.session p { margin: 0; min-height: 6.2em; color: var(--muted); font-size: 16px; line-height: 1.55; transition: color .25s; }
+.session h3 { margin: 20px 0 6px; display: block; font-size: clamp(21px, 1.9vw, 25px); line-height: 1.2; font-weight: 800; }
+.session p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.55; transition: color .25s; }
 @media (max-width: 560px) { .session h3, .session p { min-height: 0; } }
 .session:hover { background-color: var(--accent); color: #fff;
   background-image: radial-gradient(rgba(255,255,255,.18) 1.1px, transparent 1.4px); background-size: 12px 12px; }
 .session:hover .dotfont, .session:hover p { color: #fff; }
-@media (max-width: 1000px) {
-  .sessions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .session:nth-child(3) { border-inline-start: 0; }
-  .session:nth-child(n+3) { border-top: 1px solid var(--line); }
-  .session { min-height: 280px; }
-}
-@media (max-width: 560px) {
+/* שאלות המושב */
+.session-q { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.session-q li { position: relative; padding-inline-start: 18px; color: var(--muted); font-size: 16px; line-height: 1.55; transition: color .25s; }
+.session-q li::before { content: ""; position: absolute; inset-inline-start: 0; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); transition: background .25s; }
+.session:hover .session-q li { color: #fff; }
+.session:hover .session-q li::before { background: #fff; }
+
+@media (max-width: 760px) {
   .sessions { grid-template-columns: 1fr; }
-  .session + .session { border-inline-start: 0; border-top: 1px solid var(--line); }
-  .session { min-height: 0; grid-template-rows: auto auto auto; gap: 10px; }
+  .session:nth-child(even) { border-inline-start: 0; }
+  .session + .session { border-top: 1px solid var(--line); }
+  .session { gap: 10px; padding: 22px 20px 24px; }
+  .session h3 { margin-top: 12px; }
   .session .dotfont { font-size: 44px; }
 }
 .after-program { margin-top: 20px; }
 .after-program .note { margin: 0; color: var(--muted); font-size: 15px; }
 
 /* ----- 02 דוברים ----- */
-.speakers { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 32px; }
-@media (max-width: 900px) { .speakers { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.speakers { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 28px; }
+@media (max-width: 1100px) { .speakers { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .speakers { grid-template-columns: 1fr; } }
 
 /* ----- 03 השתתפות ----- */
@@ -241,15 +245,14 @@ body {
 .questions { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
   border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .questions li { padding: 20px 24px 22px; min-width: 0; display: grid; align-content: center; }
-.questions li:first-child { padding-inline-start: 0; }
 .questions li + li { border-inline-start: 1px solid var(--line); }
-.questions li:nth-child(3) { text-align: center; }
+.questions li { text-align: center; }
 .questions p { margin: 0; font-size: clamp(18px, 1.6vw, 20px); font-weight: 700; line-height: 1.4; text-wrap: balance; }
 @media (max-width: 760px) {
   .questions { grid-template-columns: 1fr; }
   .questions li { padding-inline: 0; padding-block: 16px; }
   .questions li + li { border-inline-start: 0; border-top: 1px solid var(--line); }
-  .questions li:nth-child(3) { text-align: start; }
+  .questions li { text-align: start; }
 }
 
 /* ההרשמה */
@@ -326,7 +329,6 @@ form { display: grid; }
 .consent input:checked { border-color: var(--accent); }
 .consent input:checked::after { transform: scale(1); }
 .consent input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.consent.research { border-top: 1px dashed var(--panel-line); padding-top: 14px; }
 input.hp { position: absolute; inset-inline-start: 0; width: 1px; height: 1px; padding: 0; border: 0;
   overflow: hidden; opacity: 0; clip-path: inset(50%); pointer-events: none; } /* מלכודת לבוטים — לא למחוק */
 
@@ -371,8 +373,8 @@ footer { border-top: 1px solid var(--line); padding: 28px 20px; text-align: cent
     <div class="orgs">
       <p class="org">
         <strong>החוג לתקשורת ע"ש דן</strong>
-        בית הספר לחברה ומדיניות<br>
-        הפקולטה למדעי החברה ע"ש גרשון גורדון
+        הפקולטה למדעי החברה ע"ש גרשון גורדון<br>
+        אוניברסיטת תל אביב
       </p>
       <span class="brand-divider" aria-hidden="true"></span>
       <!-- כאן יתווסף הלוגו של הפקולטה לניהול כשיגיע -->
@@ -397,8 +399,7 @@ footer { border-top: 1px solid var(--line); padding: 28px 20px; text-align: cent
     <dl class="facts" id="facts">
       <div class="fact"><dt class="mono">Date</dt><dd><span class="glow" data-text="2.12.2026">2.12.2026</span><small>יום רביעי</small></dd></div>
       <div class="fact"><dt class="mono">Time</dt><dd><span class="glow" dir="ltr" data-text="15:00–19:00">15:00–19:00</span></dd></div>
-      <!-- האולם והבניין יעודכנו אחרי אימות -->
-      <div class="fact"><dt class="mono">Place</dt><dd><span class="glow" data-text="אוניברסיטת תל אביב">אוניברסיטת תל אביב</span><small>פרטי האולם יפורסמו בקרוב</small></dd></div>
+      <div class="fact"><dt class="mono">Place</dt><dd><span class="glow" data-text="אוניברסיטת תל אביב">אוניברסיטת תל אביב</span><small>בניין נפתלי, אולם 1</small></dd></div>
     </dl>
 
     <a class="cta" href="#register">להרשמה לכנס
@@ -438,12 +439,11 @@ footer { border-top: 1px solid var(--line); padding: 28px 20px; text-align: cent
     <h3 id="program">ארבעה מושבים</h3>
     <span class="mono">Program · 15:00–19:00</span>
   </div>
-  <!-- התיאורים הקצרים הם טיוטה לאישור הצוות -->
   <ol class="sessions">
-    <li class="session"><span class="dotfont">01</span><h3>טכנולוגיה ומדיניות הטמעה</h3><p>אילו כלי AI כבר נכנסו לעבודה, כיצד בוחרים ומטמיעים אותם, וכיצד מודדים אם הם משפרים את העבודה בפועל.</p></li>
-    <li class="session"><span class="dotfont">02</span><h3>רגולציה ואחריות</h3><p>מי צריך לקבוע את הכללים, כיצד מסדירים אחריות לדיוק, לפרטיות ולזכויות יוצרים, ומתי מגלים לקהל על שימוש ב־AI.</p></li>
-    <li class="session"><span class="dotfont">03</span><h3>עיתונאים ועבודת המערכת</h3><p>AI בתחקיר, באימות ובכתיבה: כיצד בודקים את מה שהכלים מפיקים, כיצד מגינים על מקורות, ומה חייב להישאר בידי אדם.</p></li>
-    <li class="session"><span class="dotfont">04</span><h3>עורכים והנהלות</h3><p>כיצד מעריכים תועלת וסיכון לפני אימוץ, מי קובע את המדיניות בארגון, ואילו עקרונות כדאי לקבוע במשותף לכל הענף.</p></li>
+    <li class="session"><span class="dotfont">01</span><h3>טכנולוגיה ומדיניות הטמעה</h3><ul class="session-q"><li>אילו כלי AI כבר משמשים מערכות ידע, ולאילו משימות?</li><li>כיצד בוחרים כלי מתאים ומשלבים אותו בתהליכי העבודה הקיימים במקצועות ידע?</li><li>היכן הכלים משפרים את העבודה בפועל, וכיצד מודדים את תרומתם?</li><li>מהם הסיכונים והחסמים המרכזיים בהטמעה — מאיכות התוצרים ואבטחת מידע ועד עלויות ומחסור בהכשרה — וכיצד מתמודדים איתם?</li></ul></li>
+    <li class="session"><span class="dotfont">02</span><h3>רגולציה ואחריות</h3><ul class="session-q"><li>אילו כללים נדרשים לשימוש ב־AI בעיתונות, ומי צריך לקבוע אותם: המחוקק, גופי הענף או מערכות החדשות?</li><li>כיצד יש להסדיר אחריות לדיוק, להגנה על פרטיות ולשמירה על זכויות יוצרים כאשר AI מעורב ביצירת תוכן?</li><li>מתי ראוי לגלות לקהל על שימוש ב־AI, וכיצד עושים זאת באופן מועיל וברור?</li><li>כיצד אפשר לקבוע כללים שמצמצמים פגיעה בציבור ובאמון בעיתונות, בלי לחסום שימושים עיתונאיים מועילים?</li></ul></li>
+    <li class="session"><span class="dotfont">03</span><h3>עיתונאים ועבודת המערכת</h3><ul class="session-q"><li>כיצד עיתונאים משתמשים ב־AI בתחקיר, באיסוף מידע, באימות ובכתיבה? באילו שלבים הוא מועיל במיוחד?</li><li>כיצד בודקים מידע שהופק באמצעות AI לפני פרסומו, ומי נושא באחריות לבדיקה?</li><li>כיצד מגינים על מקורות ועל מידע רגיש בעת השימוש בכלים חיצוניים?</li><li>אילו מיומנויות נדרשות מעיתונאים בעידן ה־AI, ואילו החלטות חייבות להישאר בידי אדם?</li></ul></li>
+    <li class="session"><span class="dotfont">04</span><h3>עורכים והנהלות</h3><ul class="session-q"><li>כיצד עורכים ומנהלים מעריכים את התועלת והסיכון של כלי AI לפני אימוץ?</li><li>מי משתתף בקביעת מדיניות השימוש בארגון, וכיצד מעדכנים אותה כשהטכנולוגיה משתנה?</li><li>אילו נהלים, הכשרות ובקרות דרושים כדי שהמדיניות תשפיע על העבודה היומיומית?</li><li>האם נחוצים עקרונות משותפים לכלל ענף העיתונות? אם כן, מה כדאי לקבוע במשותף ומה להשאיר לשיקול דעתה של כל מערכת?</li></ul></li>
   </ol>
   <div class="after-program">
     <p class="note">שעות המושבים ושיבוץ הדוברים יפורסמו בהמשך.</p>
@@ -469,7 +469,8 @@ footer { border-top: 1px solid var(--line); padding: 28px 20px; text-align: cent
          תמונה ריבועית, לפחות 400x400. כל עוד אין קובץ, מוצג עיגול נקודות במקומו. -->
     <ul class="speakers">
       <li class="speaker"><span class="photo"><img src="avner-kantor.jpg" alt="" loading="lazy"></span><div><b>ד"ר אבנר קנטור</b><span>דאטה סיינטיסט, הלשכה המרכזית לסטטיסטיקה</span></div></li>
-      <li class="speaker"><span class="photo"><img src="or-hirschauge.jpg" alt="" loading="lazy"></span><div><b>אור הירשאוגה</b><span>מנכ"ל אלכמיק</span></div></li>
+      <li class="speaker"><span class="photo"><img src="or-hirschauge.jpg" alt="" loading="lazy"></span><div><b>אור הירשאוגה</b><span>מנכ"ל אלקמיק</span></div></li>
+      <li class="speaker"><span class="photo"><img src="itai-zilber.jpg" alt="" loading="lazy"></span><div><b>איתי זילבר</b><span>אוניברסיטת תל אביב</span></div></li>
       <li class="speaker"><span class="photo"><img src="aluf-benn.jpg" alt="" loading="lazy"></span><div><b>אלוף בן</b><span>הארץ</span></div></li>
       <li class="speaker"><span class="photo"><img src="amir-ben-david.jpg" alt="" loading="lazy"></span><div><b>אמיר בן דוד</b><span>עובדה, קשת 12</span></div></li>
       <li class="speaker"><span class="photo"><img src="asaf-horowitz.jpg" alt="" loading="lazy"></span><div><b>ד"ר אסף הורוביץ</b><span>רשות החדשנות</span></div></li>
@@ -486,6 +487,7 @@ footer { border-top: 1px solid var(--line); padding: 28px 20px; text-align: cent
       <li class="speaker"><span class="photo"><img src="zvi-reich.jpg" alt="" loading="lazy"></span><div><b>פרופ' צבי רייך</b><span>אוניברסיטת בן-גוריון בנגב</span></div></li>
       <li class="speaker"><span class="photo"><img src="roei-davidson.jpg" alt="" loading="lazy"></span><div><b>פרופ' רועי דודזון</b><span>אוניברסיטת חיפה</span></div></li>
       <li class="speaker"><span class="photo"><img src="shuki-tausig.jpg" alt="" loading="lazy"></span><div><b>שוקי טאוסיג</b><span>העין השביעית</span></div></li>
+      <li class="speaker"><span class="photo"><img src="tehilla-shwartz-altshuler.jpg" alt="" loading="lazy"></span><div><b>ד"ר תהילה שוורץ אלטשולר</b><span>המכון הישראלי לדמוקרטיה</span></div></li>
     </ul>
 </section>
 </div>
@@ -616,14 +618,9 @@ footer { border-top: 1px solid var(--line); padding: 28px 20px; text-align: cent
         <div class="consents">
           <label class="consent" for="consent">
             <input type="checkbox" id="consent" name="consent" required>
-            <span><b>הרשמה לכנס:</b> אני מאשר/ת שמירת הפרטים לצורך ניהול הכנס ויצירת קשר בנוגע אליו.</span>
+            <span><b>אישור השתתפות במחקר:</b> אני מאשר/ת שמירת הפרטים לצורך ניהול הכנס ויצירת קשר בנוגע אליו, ומסכים/ה להשתתף במחקר המלווה את הכנס באמצעות שאלונים במהלך הכנס ולאחריו. המידע האישי יישאר אנונימי.</span>
           </label>
           <div class="err" id="consent-err"></div>
-          <!-- נוסח ההסכמה למחקר: טיוטה לאישור הצוות -->
-          <label class="consent research" for="research">
-            <input type="checkbox" id="research" name="research">
-            <span><b>השתתפות במחקר (רשות):</b> אני מעוניין/ת להשתתף במחקר המלווה את הכנס, באמצעות שאלונים במהלך הכנס ולאחריו. ההרשמה לכנס אינה מותנית בכך, ומידע מלא על המחקר יימסר בנפרד.</span>
-          </label>
         </div>
 
         <input class="hp" type="text" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -881,7 +878,7 @@ function validate() {
     if (res !== true && !firstBad) firstBad = ($(id + "Other") && !$(id + "Other").hidden && $(id).value) ? id + "Other" : id;
   }
   const consent = $("consent").checked;
-  setError("consent", consent ? "" : "יש לאשר כדי להשלים את ההרשמה");
+  setError("consent", consent ? "" : "יש לאשר את ההשתתפות במחקר כדי להשלים את ההרשמה");
   if (!consent && !firstBad) firstBad = "consent";
   if (firstBad) $(firstBad).focus();
   return !firstBad;
@@ -915,7 +912,7 @@ form.addEventListener("submit", async (e) => {
     role:           $("role").value,
     roleOther:      $("role").value === "אחר" ? $("roleOther").value.trim() : "",
     organization:   $("organization").value.trim(),
-    researchConsent: $("research").checked ? "כן" : "לא",
+    researchConsent: $("consent").checked ? "כן" : "לא",
     website:        $("website").value, // honeypot
   });
 
