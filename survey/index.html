@@ -234,8 +234,7 @@ footer { border-top: 1px solid var(--line); margin-top: 32px; padding: 20px 18px
    מדביקים כאן את הכתובת שמקבלים ב-Deploy. כל עוד היא לא מוגדרת,
    העמוד עובד במצב תצוגה עם נתוני דוגמה.
    ========================================================= */
-const SCRIPT_URL = "PASTE_SURVEY_WEB_APP_URL_HERE";
-
+   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxXtjhzOPa6i0ftWaYI6d2nDkJeOOzol2XA-At92QspNx26xfhInwrFN0BOr9E8vOApeQ/exec";
 const DEMO = !/^https:\/\/script\.google\.com\//.test(SCRIPT_URL);
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
