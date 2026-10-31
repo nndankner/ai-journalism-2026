@@ -488,7 +488,7 @@ function render() {
       ${timeline(null)}</div></div>`;
   }
   if (S && S.attendee && view !== "enter" && view !== "unknown") {
-    html += `<p class="privacy">התשובות נשמרות עם שמך ותפקידך לצורך ניתוח מחקרי. על המסך באולם מוצגים נתונים מצרפיים בלבד, ללא שמות.</p>`;
+    html += `<p class="privacy">התשובות נשמרות יחד עם פרטי ההרשמה שלך. בניתוח המחקרי ייכללו רק מי שהסכימו לכך בהרשמה. על המסך באולם מוצגים נתונים מצרפיים בלבד, ללא שמות.</p>`;
   }
   main.innerHTML = html;
   const input = $("codeInput"); if (input && view === "unknown") input.select();
