@@ -193,6 +193,72 @@ footer { border-top: 1px solid var(--line); margin-top: 32px; padding: 20px 18px
 .fade { animation: fadein .35s ease; }
 @keyframes fadein { from { opacity: 0; transform: translateY(8px); } }
 
+
+/* ---------- שאלון לפני הכנס ---------- */
+.head[hidden] { display: none; }
+.intro p { margin: 12px 0 0; color: var(--panel-fg); }
+.intro p.lead { font-size: 18px; }
+.legend { margin: 18px 0 0; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--panel-line); background: var(--panel); }
+.legend .mono { color: var(--accent); font-size: 11px; display: block; margin-bottom: 6px; }
+.legend ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 15px; }
+.legend li { display: flex; gap: 10px; align-items: baseline; }
+.legend li .dotfont { color: var(--accent); font-size: 17px; min-width: 2.2em; text-align: center; }
+.legend li .na { font-weight: 700; color: var(--accent); min-width: 2.2em; text-align: center; font-size: 15px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 16px 0 0; color: var(--panel-muted); font-size: 14px; }
+.meta span::before { content: "·"; margin-inline-end: 8px; color: var(--accent); font-weight: 700; }
+.meta span:first-child::before { content: none; }
+
+.progress { display: grid; grid-template-columns: repeat(var(--n), 1fr); gap: 4px; margin-top: 12px; }
+.progress i { height: 4px; border-radius: 2px; background: var(--panel-line); }
+.progress i.on { background: var(--accent); }
+.group-title { margin: 22px 0 0; padding-bottom: 6px; font-size: 13px; font-weight: 700; color: var(--panel-muted); border-bottom: 1.5px solid var(--panel-fg); }
+.q.agree h3, .q.rank h3 { font-size: 17.5px; font-weight: 600; line-height: 1.45; }
+.q.missing .q-head .idx { color: var(--panel-error); }
+.q.missing .q-head h3::after { content: " · חסרה תשובה"; color: var(--panel-error); font-size: 13px; font-weight: 600; white-space: nowrap; }
+.scale .opt.dim { opacity: .55; }
+.na-btn { all: unset; box-sizing: border-box; cursor: pointer; display: block; width: 100%; margin-top: 8px; padding: 8px 12px; text-align: center;
+  border-radius: 12px; border: 1.5px dashed var(--panel-line); font-size: 14.5px; font-weight: 600; color: var(--panel-muted); }
+.na-btn[aria-pressed="true"] { border-style: solid; border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.na-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.rank-help { margin: 0 0 12px; color: var(--panel-muted); font-size: 15px; }
+.rank-scale { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--accent); }
+.rank-scale::before { content: ""; width: 0; height: 0; border-inline: 5px solid transparent; border-bottom: 7px solid currentColor; }
+.rank-scale.bottom { margin: 8px 0 0; color: var(--panel-muted); }
+.rank-scale.bottom::before { border-bottom: 0; border-top: 7px solid currentColor; }
+.rank-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.rank-card { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: 10px;
+  min-height: 62px; padding: 8px 8px 8px 6px; border-radius: 16px; border: 1.5px solid var(--panel-line); background: var(--panel);
+  font-size: 17px; font-weight: 600; line-height: 1.3; color: var(--panel-fg); user-select: none; -webkit-user-select: none;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .15s; }
+.rank-card .rk { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; flex: none;
+  font-family: var(--font-dot); font-weight: 900; font-size: 22px; direction: ltr; color: var(--panel-muted); border: 1.5px dashed var(--panel-muted); }
+.rank-card .txt { all: unset; cursor: pointer; display: block; min-height: 44px; display: flex; align-items: center; border-radius: 10px; }
+.rank-card .txt:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.rank-card.marked, .confirmed .rank-card { border-color: var(--accent); }
+.rank-card.marked .rk, .confirmed .rank-card .rk { border: 0; background: var(--accent); color: #fff; }
+.rank-card.marked { background: var(--accent-soft); }
+.rank-card.dragging { z-index: 3; transition: box-shadow .18s ease; box-shadow: 0 14px 30px rgba(10, 12, 18, .2); border-color: var(--accent); background: var(--accent-soft); }
+.rank-list.sorting .rank-card:not(.dragging) { transition: transform .18s ease; }
+.grip { width: 34px; height: 46px; cursor: grab; touch-action: none; border-radius: 10px;
+  background-image: radial-gradient(var(--panel-muted) 1.7px, transparent 2px); background-size: 9px 9px; background-position: center; }
+.rank-card.dragging .grip { cursor: grabbing; background-image: radial-gradient(var(--accent) 1.7px, transparent 2px); }
+.moves { display: grid; gap: 2px; }
+.moves button { all: unset; cursor: pointer; width: 34px; height: 26px; display: grid; place-items: center; border-radius: 8px; color: var(--panel-muted); }
+.moves button:hover:not(:disabled) { color: var(--accent); background: var(--accent-soft); }
+.moves button:disabled { opacity: .22; cursor: default; }
+.moves button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.moves svg { width: 18px; height: 18px; }
+.rank-foot { display: grid; gap: 10px; justify-items: center; margin-top: 12px; text-align: center; font-size: 14px; color: var(--panel-muted); }
+.rank-foot .btn { width: 100%; }
+.rank-ok { color: var(--accent); font-weight: 600; }
+.btn.small { height: 48px; margin-top: 0; font-size: 16px; }
+.linkbtn { all: unset; cursor: pointer; color: var(--panel-muted); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+.linkbtn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.nav { display: grid; gap: 10px; margin-top: 4px; }
+.nav .back { justify-self: center; margin-top: 2px; }
+.btn.ghost { color: var(--panel-fg); background: var(--panel); background-image: none; border: 1.5px solid var(--panel-line); }
+.note { margin: 14px 0 0; font-size: 14px; color: var(--panel-muted); text-align: center; text-wrap: balance; }
+
 @media (prefers-reduced-motion: reduce) {
   .btn { transition: none; }
   .fade, .state .live::before { animation: none; }
@@ -212,7 +278,7 @@ footer { border-top: 1px solid var(--line); margin-top: 32px; padding: 20px 18px
 
   <div class="wrap">
     <header class="head" id="head">
-      <p class="eyebrow dotfont">AI × JOURNALISM · LIVE</p>
+      <p class="eyebrow dotfont">AI × JOURNALISM 2026</p>
       <h1><span class="dot-text">סקר הקהל</span></h1>
       <canvas class="dot-canvas" id="headDots" aria-hidden="true"></canvas>
       <p class="sub">עיתונות בעידן ה־AI · <span dir="ltr">2.12.2026</span></p>
@@ -311,8 +377,9 @@ function dotTitle(container, canvas, opts) {
   (document.fonts && document.fonts.load)
     ? Promise.all([document.fonts.load('700 100px "Rubik"', "אAI"), document.fonts.load('400 16px "IBM Plex Sans Hebrew"', "א")]).then(start, start)
     : start();
+  return start;
 }
-dotTitle($("head"), $("headDots"), { maxWidth: 600, size: 96, mobileSize: 72 });
+const rebuildHead = dotTitle($("head"), $("headDots"), { maxWidth: 600, size: 96, mobileSize: 72 });
 
 /* =========================================================
    נתונים
@@ -335,6 +402,8 @@ let draft = {};               // תשובות שנבחרו ועוד לא נשל�
 let view = "loading";
 let sending = false, sendError = "";
 let pollTimer = 0, tickTimer = 0;
+let step = 0;                 // שאלון לפני הכנס: 0 פתיחה, 1..n חלקים, n+1 סיום
+let saving = false, saveError = "", missingIds = [];
 const now = () => Date.now() + clockOffset;
 
 async function api(action, params) {
@@ -380,6 +449,10 @@ async function refresh() {
     const prevStage = S && S.stage && S.stage.id;
     S = res;
     if (!S.attendee) view = "unknown";
+    else if (S.stage && S.stage.long) {
+      if (view !== "pre" || prevStage !== S.stage.id) enterPre();
+      view = "pre";
+    }
     else if (S.stage && S.stage.closesAt > now() && !S.answered.includes(S.stage.id)) {
       if (prevStage !== S.stage.id) { draft = loadDraft(); sendError = ""; }
       view = "open";
@@ -396,11 +469,11 @@ async function refresh() {
 // בודקים שוב מדי פעם רק כשלא באמצע מילוי, וכשהמסך גלוי
 function schedulePoll() {
   clearTimeout(pollTimer);
-  if (view === "open" || view === "enter" || view === "unknown") return;
+  if (view === "open" || view === "pre" || view === "enter" || view === "unknown") return;
   pollTimer = setTimeout(() => { if (document.visibilityState === "visible") refresh(); else schedulePoll(); },
     45000 + Math.random() * 30000);
 }
-document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && view !== "open") refresh(); });
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && view !== "open" && view !== "pre") refresh(); });
 
 /* =========================================================
    תצוגה
@@ -435,7 +508,11 @@ function clockHtml() {
 
 function render() {
   clearInterval(tickTimer);
+  const headWasHidden = $("head").hidden;
+  $("head").hidden = view === "pre" && step > 0;
+  if (headWasHidden && !$("head").hidden && $("headDots").clientWidth < 50) rebuildHead();
   let html = "";
+  if (view === "pre") { main.innerHTML = preHtml() + privacyHtml(); return; }
   if (view === "loading") {
     html = `<div class="panel textured"><div class="state"><span class="badge muted">···</span><p>טוען…</p></div></div>`;
   }
@@ -486,16 +563,326 @@ function render() {
   else { // waiting
     html = idBar() + `<div class="panel textured fade"><div class="state">
       <span class="badge muted">--:--</span><h2>אין שאלון פתוח כרגע</h2>
-      <p>כשהמנחה יכריז על שאלון חדש, העמוד יתעדכן לבד. אפשר גם לסרוק שוב את הקוד שעל התג.</p>
-      <span class="live mono">Standby</span>
-      ${timeline(null)}</div></div>`;
+      <p>כשייפתח שאלון, הוא יופיע כאן, באותו קישור.</p></div></div>`;
   }
-  if (S && S.attendee && view !== "enter" && view !== "unknown") {
-    html += `<p class="privacy">התשובות נשמרות יחד עם פרטי ההרשמה שלך. בניתוח המחקרי ייכללו רק מי שהסכימו לכך בהרשמה. על המסך באולם מוצגים נתונים מצרפיים בלבד, ללא שמות.</p>`;
-  }
+  if (S && S.attendee && view !== "enter" && view !== "unknown") html += privacyHtml();
   main.innerHTML = html;
   const input = $("codeInput"); if (input && view === "unknown") input.select();
 }
+
+
+function privacyHtml() {
+  return `<p class="privacy">התשובות נשמרות יחד עם פרטי ההרשמה שלך. בניתוח המחקרי ייכללו רק מי שהסכימו לכך בהרשמה. בכנס יוצגו נתונים מצרפיים בלבד, ללא שמות.</p>`;
+}
+
+/* =========================================================
+   שאלון לפני הכנס: שאלון אחד, מחולק לחלקים לפי עמודת section
+   ========================================================= */
+const NA = "NA";
+function preSections() {
+  const out = [];
+  for (const q of S.stage.questions) {
+    const title = q.section || "";
+    let sec = out.find(x => x.title === title);
+    if (!sec) { sec = { title, items: [] }; out.push(sec); }
+    sec.items.push(q);
+  }
+  return out;
+}
+const isAnswered = q => {
+  const v = draft[q.id];
+  if (q.type === "rank") return Array.isArray(v) && v.filter(x => x > 0).length === q.options.length;
+  return v != null && v !== "";
+};
+const totalQs = () => S.stage.questions.length;
+const answeredQs = () => S.stage.questions.filter(isAnswered).length;
+
+function enterPre() {
+  // מה שנשמר בשרת, ועליו טיוטה מהטלפון (אם יש, היא חדשה יותר)
+  draft = Object.assign({}, S.mine || {}, loadDraft());
+  saveError = ""; missingIds = [];
+  const secs = preSections();
+  const done = answeredQs() === totalQs() && Object.keys(S.mine || {}).length > 0;
+  if (done && secs.every(sec => sec.items.every(q => S.mine && S.mine[q.id] != null))) step = secs.length + 1;
+  else if (answeredQs() === 0) step = 0;
+  else { const i = secs.findIndex(sec => sec.items.some(q => !isAnswered(q))); step = i < 0 ? secs.length : i + 1; }
+}
+
+function splitTitle(t) {
+  const m = String(t).match(/^([א-ת])[.׳']?\s+(.+)$/);
+  return m ? { letter: m[1], name: m[2] } : { letter: "", name: t };
+}
+
+function preHtml() {
+  const secs = preSections(), n = secs.length;
+  if (step === 0) return idBar() + introHtml(n);
+  if (step > n) return idBar() + `<div class="panel textured fade"><div class="state">
+      <span class="badge">OK</span><h2>תודה, השאלון נשלח</h2>
+      <p>התשובות שלך נשמרו. התוצאות המצרפיות יוצגו בכנס.</p>
+      <p>אם תרצו לשנות תשובה, אפשר לחזור לקישור הזה בכל עת.</p>
+      <button class="btn ghost" data-act="edit"><span>עריכת התשובות</span></button></div></div>`;
+
+  const sec = secs[step - 1], t = splitTitle(sec.title), last = step === n;
+  let num = secs.slice(0, step - 1).reduce((a, x) => a + x.items.length, 0);
+  let group = null, items = "";
+  for (const q of sec.items) {
+    num++;
+    if ((q.group || "") !== group) { group = q.group || ""; if (group) items += `<h3 class="group-title">${esc(group)}</h3>`; }
+    items += preQuestionHtml(q, num);
+  }
+  const left = sec.items.filter(q => !isAnswered(q)).length;
+  return idBar() + `<div class="panel textured fade">
+    <div class="panel-top" style="display:block">
+      <h2 class="panel-title"><span class="mono">Part ${pad(step)} / ${pad(n)}</span>${t.letter ? `${esc(t.letter)}. ` : ""}${esc(t.name)}</h2>
+      <div class="progress" style="--n:${n}" aria-hidden="true">${secs.map((x, i) => `<i class="${i < step ? "on" : ""}"></i>`).join("")}</div>
+    </div>
+    ${items}
+    <div class="nav">
+      <button class="btn ${saving ? "busy" : ""}" data-act="next" ${saving ? "disabled" : ""}>
+        <span>${saving ? "שומר…" : last ? "שליחת השאלון" : "המשך"}</span>${saving ? "" : ARROW}</button>
+      ${left && !saving ? `<p class="hint">${left === 1 ? "נשאר היגד אחד" : `נשארו ${left} היגדים`} בלי תשובה בחלק הזה</p>` : ""}
+      <div class="status" role="alert">${esc(saveError)}</div>
+      <button class="linkbtn back" data-act="prev">חזרה${step === 1 ? " להסבר" : " לחלק הקודם"}</button>
+    </div>
+  </div>`;
+}
+
+function introHtml(n) {
+  const started = answeredQs() > 0;
+  return `<div class="panel textured fade intro">
+    <div class="panel-top"><h2 class="panel-title"><span class="mono">Pre-conference survey</span>בינה מלאכותית במערכות חדשות</h2></div>
+    <p class="lead">מטרת השאלון היא לבחון עמדות לגבי השימוש בבינה מלאכותית (AI) במערכות חדשות ולגבי המדיניות שצריכה להסדיר אותו.</p>
+    <p>מסגרת ההתייחסות היא שימוש תדיר של עיתונאים ועורכים בכלי AI לאיסוף ולעיבוד מידע וליצירת תוכן חדשותי.</p>
+    <p>בחלקים א׳–ד׳ ציינו את מידת הסכמתכם עם כל היגד. בהיגדי המדיניות התייחסו למה שראוי לחייב או להתיר במערכות חדשות, ולא לנוהג הקיים בארגונכם.</p>
+    <div class="legend"><span class="mono">Scale</span><ol>
+      <li><span class="dotfont">1</span>כלל לא מסכים/ה</li>
+      <li><span class="dotfont">2</span>לא מסכים/ה</li>
+      <li><span class="dotfont">3</span>לא מסכים/ה ולא מתנגד/ת</li>
+      <li><span class="dotfont">4</span>מסכים/ה</li>
+      <li><span class="dotfont">5</span>מסכים/ה מאוד</li>
+      <li><span class="na">ל״ה</span>לא ניתן להעריך</li></ol></div>
+    <div class="meta"><span>${totalQs()} שאלות ב־${n} חלקים</span><span>כ־7 דקות</span><span>אפשר לעצור ולהמשיך מאותו קישור</span></div>
+    <button class="btn" data-act="start"><span>${started ? "המשך מהמקום שעצרתם" : "התחלה"}</span>${ARROW}</button>
+  </div>`;
+}
+
+function preQuestionHtml(q, num) {
+  const v = draft[q.id], miss = missingIds.includes(q.id) && !isAnswered(q);
+  const head = `<div class="q-head"><span class="idx">${pad(num)}</span><h3 id="qt-${esc(q.id)}">${esc(q.text)}</h3></div>`;
+  if (q.type === "rank") {
+    const order = rankOrder(q), done = isAnswered(q), n = order.length, m = rankMarkedCount(q);
+    const UP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>';
+    const DOWN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+    return `<div class="q rank ${done ? "ok confirmed" : ""} ${miss ? "missing" : ""}" id="q-${esc(q.id)}">${head}
+      <p class="rank-help">לחצו על הגורמים לפי הסדר, מהמתאים ביותר להוביל ועד המתאים פחות. אפשר גם לגרור כרטיס מהנקודות שבצד, או להזיז עם החיצים.</p>
+      <div class="rank-scale" aria-hidden="true"><span>מתאים ביותר להוביל</span></div>
+      <ol class="rank-list" data-rank-list="${esc(q.id)}" aria-labelledby="qt-${esc(q.id)}">${order.map((k, pos) => `
+        <li class="rank-card ${pos < m ? "marked" : ""}" data-k="${k}">
+          <span class="rk">${pos < m ? pos + 1 : ""}</span>
+          <button class="txt" data-rtap="${esc(q.id)}" data-k="${k}" aria-label="${esc(q.options[k])}${pos < m ? `, מקום ${pos + 1}. לחיצה מבטלת` : ". לחיצה מסמנת את המקום הבא"}">${esc(q.options[k])}</button>
+          <span class="moves">
+            <button data-rmove="${esc(q.id)}" data-k="${k}" data-d="-1" ${pos === 0 ? "disabled" : ""} aria-label="להזיז את ${esc(q.options[k])} למעלה">${UP}</button>
+            <button data-rmove="${esc(q.id)}" data-k="${k}" data-d="1" ${pos === n - 1 ? "disabled" : ""} aria-label="להזיז את ${esc(q.options[k])} למטה">${DOWN}</button>
+          </span>
+          <span class="grip" aria-hidden="true" title="גרירה"></span>
+        </li>`).join("")}</ol>
+      <div class="rank-scale bottom" aria-hidden="true"><span>מתאים פחות להוביל</span></div>
+      <div class="rank-foot">${done
+        ? `<span class="rank-ok">הדירוג נקלט בסדר הזה. אפשר להמשיך להזיז.</span>`
+        : `<span>${m ? `סומנו ${m} מתוך ${n}. לחצו על הבא בתור.` : "עוד לא סומן אף גורם."}</span>
+           <button class="btn ghost small" data-act="rank-confirm" data-q="${esc(q.id)}"><span>הסדר הנוכחי משקף את עמדתי</span></button>
+           ${m ? `<button class="linkbtn" data-act="rank-reset" data-q="${esc(q.id)}">ניקוי הסימון</button>` : ""}`}</div>
+      <p class="note">הדירוג מתייחס להובלה ואינו שולל שיתוף פעולה בין הגורמים.</p>
+      <p class="sr-only" aria-live="polite" id="rank-live"></p></div>`;
+  }
+  const isNA = v === NA;
+  return `<div class="q agree ${isAnswered(q) ? "ok" : ""} ${miss ? "missing" : ""}" id="q-${esc(q.id)}">${head}
+    <div class="scale" role="radiogroup" aria-labelledby="qt-${esc(q.id)}">${[1, 2, 3, 4, 5].map(n =>
+      `<button class="opt ${isNA ? "dim" : ""}" role="radio" aria-checked="${v === n}" aria-label="${n}" data-pq="${esc(q.id)}" data-v="${n}"><span class="dotfont">${n}</span></button>`).join("")}</div>
+    <div class="scale-ends"><span>${esc(q.min || "כלל לא מסכים/ה")}</span><span>${esc(q.max || "מסכים/ה מאוד")}</span></div>
+    <button class="na-btn" aria-pressed="${isNA}" data-pq="${esc(q.id)}" data-v="NA">לא ניתן להעריך (ל״ה)</button></div>`;
+}
+
+/* ---------- דירוג בגרירה ----------
+   הסדר ההתחלתי מוגרל לכל משתתף (כדי שהאפשרות הראשונה ברשימה לא תקבל יתרון),
+   והדירוג נחשב תשובה רק אחרי שהמשתתף הזיז כרטיס או אישר את הסדר */
+const rankOrders = {}, rankMarked = {};
+const rankKey = q => "survey-rankorder-" + code + "-" + q.id;
+function persistRank(q) {
+  try { localStorage.setItem(rankKey(q), JSON.stringify(rankOrders[q.id])); localStorage.setItem(rankKey(q) + "-m", String(rankMarked[q.id] || 0)); } catch (e) {}
+}
+function rankMarkedCount(q) {
+  if (isAnswered(q)) return q.options.length;
+  if (rankMarked[q.id] == null) { let m = 0; try { m = Number(localStorage.getItem(rankKey(q) + "-m")) || 0; } catch (e) {} rankMarked[q.id] = Math.min(m, q.options.length - 1); }
+  return rankMarked[q.id];
+}
+// סימון בלחיצה: הגורם שנלחץ עובר למקום הפנוי הבא מלמעלה. לחיצה על גורם מסומן מבטלת את הסימון שלו
+function tapRank(q, k) {
+  const order = rankOrder(q), n = order.length;
+  let m = rankMarkedCount(q);
+  const i = order.indexOf(k);
+  order.splice(i, 1);
+  if (i < m) {
+    order.splice(m - 1, 0, k); m--;
+    delete draft[q.id]; rankOrders[q.id] = order; rankMarked[q.id] = m; persistRank(q); saveDraft(); render();
+    const el = $("rank-live"); if (el) el.textContent = `${q.options[k]}: הסימון בוטל`;
+    return;
+  }
+  order.splice(m, 0, k); m++;
+  if (m >= n - 1) { setRankOrder(q, order); announce(q, k, m - 1); return; }   // נשאר גורם אחד: הוא מקבל את המקום האחרון
+  rankOrders[q.id] = order; rankMarked[q.id] = m; persistRank(q); render(); announce(q, k, m - 1);
+}
+function rankOrder(q) {
+  const v = draft[q.id];
+  if (Array.isArray(v) && v.filter(x => x > 0).length === q.options.length)
+    return q.options.map((_, i) => i).sort((a, b) => v[a] - v[b]);
+  if (rankOrders[q.id]) return rankOrders[q.id].slice();
+  const key = rankKey(q);
+  let o = null;
+  try { o = JSON.parse(localStorage.getItem(key) || "null"); } catch (e) {}
+  if (!Array.isArray(o) || o.length !== q.options.length || o.slice().sort().join() !== q.options.map((_, i) => i).join()) {
+    o = q.options.map((_, i) => i);
+    for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [o[i], o[j]] = [o[j], o[i]]; }
+    try { localStorage.setItem(key, JSON.stringify(o)); } catch (e) {}
+  }
+  rankOrders[q.id] = o;
+  return o.slice();
+}
+function setRankOrder(q, order) {
+  rankOrders[q.id] = order.slice(); rankMarked[q.id] = order.length; persistRank(q);
+  const ranks = q.options.map(() => 0);
+  order.forEach((k, pos) => { ranks[k] = pos + 1; });
+  draft[q.id] = ranks; saveDraft(); render();
+}
+function announce(q, k, pos) {
+  const el = $("rank-live"); if (el) el.textContent = `${q.options[k]}: מקום ${pos + 1} מתוך ${q.options.length}`;
+}
+
+let drag = null;
+document.addEventListener("pointerdown", e => {
+  const grip = view === "pre" && e.target.closest && e.target.closest(".grip");
+  if (!grip) return;
+  const card = grip.closest(".rank-card"), list = card.parentElement;
+  const cards = [...list.children], from = cards.indexOf(card);
+  const rects = cards.map(c => c.getBoundingClientRect());
+  const gap = rects.length > 1 ? rects[1].top - rects[0].bottom : 8;
+  e.preventDefault();
+  try { grip.setPointerCapture(e.pointerId); } catch (err) {}
+  drag = { qid: list.dataset.rankList, list, card, cards, from, to: from, startY: e.clientY, rects, step: rects[from].height + gap, id: e.pointerId };
+  card.classList.add("dragging"); list.classList.add("sorting");
+  if (navigator.vibrate) try { navigator.vibrate(8); } catch (err) {}
+});
+document.addEventListener("pointermove", e => {
+  if (!drag || e.pointerId !== drag.id) return;
+  e.preventDefault();
+  const r0 = drag.rects[0], rN = drag.rects[drag.rects.length - 1], me = drag.rects[drag.from];
+  // לא נותנים לכרטיס לברוח הרחק מהרשימה
+  const dy = Math.max(r0.top - me.top - 12, Math.min(rN.bottom - me.bottom + 12, e.clientY - drag.startY));
+  drag.card.style.transform = `translateY(${dy}px) scale(1.02)`;
+  const center = me.top + me.height / 2 + dy;
+  let to = 0;
+  drag.rects.forEach((r, i) => { if (i !== drag.from && center > r.top + r.height / 2) to++; });
+  if (to !== drag.to && navigator.vibrate) try { navigator.vibrate(4); } catch (err) {}
+  drag.to = to;
+  drag.cards.forEach((el, i) => {
+    if (i === drag.from) return;
+    let shift = 0;
+    if (drag.from < to && i > drag.from && i <= to) shift = -drag.step;
+    if (drag.from > to && i < drag.from && i >= to) shift = drag.step;
+    el.style.transform = shift ? `translateY(${shift}px)` : "";
+  });
+  // המספרים מתעדכנים תוך כדי גרירה
+  const order = drag.cards.map((_, i) => i); order.splice(drag.from, 1); order.splice(to, 0, drag.from);
+  order.forEach((ci, pos) => { const rk = drag.cards[ci].querySelector(".rk"); if (rk) rk.textContent = pos + 1; });
+}, { passive: false });
+function endDrag(e) {
+  if (!drag || (e && e.pointerId !== drag.id)) return;
+  const d = drag; drag = null;
+  const q = S.stage.questions.find(x => x.id === d.qid);
+  const order = d.cards.map(c => Number(c.dataset.k));
+  const [k] = order.splice(d.from, 1); order.splice(d.to, 0, k);
+  d.list.classList.remove("sorting");
+  setRankOrder(q, order);   // גם גרירה שלא שינתה מקום נחשבת אישור של הסדר
+  announce(q, k, d.to);
+}
+document.addEventListener("pointerup", endDrag);
+document.addEventListener("pointercancel", endDrag);
+
+function goStep(s) {
+  step = s; saveError = ""; missingIds = []; render();
+  scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+}
+
+async function saveSection() {
+  const secs = preSections(), sec = secs[step - 1];
+  const missing = sec.items.filter(q => !isAnswered(q));
+  if (missing.length) {
+    missingIds = missing.map(q => q.id); saveError = ""; render();
+    const el = $("q-" + missing[0].id); if (el) el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+    return;
+  }
+  // שולחים רק מה שהשתנה מאז השמירה האחרונה בשרת
+  const changed = {};
+  for (const q of sec.items) if (JSON.stringify(draft[q.id]) !== JSON.stringify((S.mine || {})[q.id])) changed[q.id] = draft[q.id];
+  if (!Object.keys(changed).length) { goStep(step + 1); return; }
+  saving = true; saveError = ""; render();
+  const note = text => { const st = main.querySelector(".status"); if (st && saving) { st.textContent = text; st.classList.add("info"); } };
+  const slowTimer = setTimeout(() => note("שומר… זה לוקח רגע, אל תסגרו את העמוד."), 6000);
+  try {
+    const res = await withRetry(() => api("save", { code, stage: S.stage.id, answers: JSON.stringify(changed) }), 4, () => note("שומר… זה לוקח רגע, אל תסגרו את העמוד."));
+    clearTimeout(slowTimer); saving = false;
+    if (res && res.ok) {
+      S.mine = Object.assign({}, S.mine || {}, res.mine || changed);
+      if (step === secs.length) clearDraft();
+      goStep(step + 1); return;
+    }
+    if (res && res.error === "closed") { saveError = "השאלון כבר נסגר, והתשובות לא נשמרו. תודה על ההתעניינות."; }
+    else saveError = "השמירה לא הצליחה. התשובות שמורות בטלפון, לחצו שוב.";
+  } catch (err) {
+    clearTimeout(slowTimer); saving = false;
+    saveError = "השמירה לא הצליחה. התשובות שמורות בטלפון. בדקו את החיבור ולחצו שוב.";
+  }
+  render();
+}
+
+main.addEventListener("click", (e) => {
+  if (view !== "pre") return;
+  const b = e.target.closest("button"); if (!b) return;
+  e.stopImmediatePropagation();
+  if (b.dataset.pq) {
+    const id = b.dataset.pq;
+    draft[id] = b.dataset.v === NA ? NA : Number(b.dataset.v);
+    saveDraft(); render();
+    const again = main.querySelector(`[data-pq="${CSS.escape(id)}"][data-v="${CSS.escape(b.dataset.v)}"]`); if (again) again.focus({ preventScroll: true });
+    return;
+  }
+  if (b.dataset.rtap) {
+    const q = S.stage.questions.find(x => x.id === b.dataset.rtap), k = Number(b.dataset.k);
+    tapRank(q, k);
+    const again = main.querySelector(`[data-rtap="${CSS.escape(q.id)}"][data-k="${k}"]`); if (again) again.focus({ preventScroll: true });
+    return;
+  }
+  if (b.dataset.rmove) {
+    const q = S.stage.questions.find(x => x.id === b.dataset.rmove), k = Number(b.dataset.k), d = Number(b.dataset.d);
+    const order = rankOrder(q), from = order.indexOf(k), to = from + d;
+    if (to < 0 || to >= order.length) return;
+    order.splice(from, 1); order.splice(to, 0, k);
+    setRankOrder(q, order);
+    announce(q, k, to);
+    const again = main.querySelector(`[data-rmove="${CSS.escape(q.id)}"][data-k="${k}"][data-d="${d}"]`)
+      || main.querySelector(`[data-rmove="${CSS.escape(q.id)}"][data-k="${k}"]:not([disabled])`);
+    if (again) again.focus({ preventScroll: true });
+    return;
+  }
+  const act = b.dataset.act;
+  if (act === "rank-reset") { const q = S.stage.questions.find(x => x.id === b.dataset.q); delete draft[q.id]; rankMarked[q.id] = 0; persistRank(q); saveDraft(); render(); }
+  if (act === "rank-confirm") { const q = S.stage.questions.find(x => x.id === b.dataset.q); setRankOrder(q, rankOrder(q)); }
+  if (act === "start") goStep(Math.max(1, (() => { const i = preSections().findIndex(sec => sec.items.some(q => !isAnswered(q))); return i < 0 ? 1 : i + 1; })()));
+  if (act === "next" && !saving) saveSection();
+  if (act === "prev") goStep(step - 1);
+  if (act === "edit") goStep(1);
+  if (act === "switch") { try { localStorage.removeItem(CODE_KEY); } catch (err) {} code = ""; S = null; history.replaceState(null, "", location.pathname); view = "enter"; render(); }
+}, true);
 
 function questionHtml(q, i) {
   const v = draft[q.id];
@@ -567,8 +954,9 @@ main.addEventListener("submit", (e) => {
 /* =========================================================
    מצב תצוגה: נתוני דוגמה כשאין עדיין כתובת סקריפט
    ========================================================= */
+const PRE_QS = [{"id": "q1", "type": "agree", "text": "שימוש תדיר בבינה מלאכותית יגרום לפרסומם של אי־דיוקים בדיווחים חדשותיים.", "section": "א. דיוק, פרשנות וגבולות ההאצלה", "group": "סיכונים ותפקידים מקצועיים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q2", "type": "agree", "text": "שימוש תדיר בבינה מלאכותית ייצר הטיות בניתוח חומר עיתונאי.", "section": "א. דיוק, פרשנות וגבולות ההאצלה", "group": "סיכונים ותפקידים מקצועיים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q3", "type": "agree", "text": "שימוש תדיר בבינה מלאכותית יוביל להתעלמות מנקודות מבט חריגות או של קבוצות מיעוט, אף שהופיעו בחומרי המקור.", "section": "א. דיוק, פרשנות וגבולות ההאצלה", "group": "סיכונים ותפקידים מקצועיים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q4", "type": "agree", "text": "הסתמכות תדירה על בינה מלאכותית תצמצם את תפקידם של עיתונאים בשיפוט עצמאי של מסקנות.", "section": "א. דיוק, פרשנות וגבולות ההאצלה", "group": "סיכונים ותפקידים מקצועיים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q5", "type": "agree", "text": "שימוש תדיר בבינה מלאכותית יגביל את יכולתם של עורכים להסביר את הפרשנויות המוצגות בכתבה ולהצדיק אותן.", "section": "א. דיוק, פרשנות וגבולות ההאצלה", "group": "סיכונים ותפקידים מקצועיים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q6", "type": "agree", "text": "יש לחייב מערכות חדשות לקבוע כיצד יש לאמת תוכן שנוצר ב־AI לפני פרסומו.", "section": "א. דיוק, פרשנות וגבולות ההאצלה", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q7", "type": "agree", "text": "יש להתיר למערכות חדשות לפרסם אוטומטית ידיעות ממקור נתונים מאומת (למשל נתוני בורסה), ללא בדיקה אנושית של כל ידיעה.", "section": "א. דיוק, פרשנות וגבולות ההאצלה", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q8", "type": "agree", "text": "יש לאסור על מערכות חדשות לפרסם מסקנה שהציע AI אם הכתב אינו יכול להסביר כיצד נגזרה מהמידע, גם כאשר עורך אישר אותה.", "section": "א. דיוק, פרשנות וגבולות ההאצלה", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q9", "type": "agree", "text": "יש להתיר למערכות חדשות להפעיל צ׳אטבוט המשיב מתוך הארכיון שלהן, ללא בדיקה אנושית של כל תשובה.", "section": "א. דיוק, פרשנות וגבולות ההאצלה", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q10", "type": "agree", "text": "הסתמכות תדירה על בינה מלאכותית תפגע במיומנויות של עיתונאים בכתיבת כתבות.", "section": "ב. יצירת תוכן, הקשר עם הקהל", "group": "סיכונים ותפקידים מקצועיים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q11", "type": "agree", "text": "הסתמכות תדירה על בינה מלאכותית תחליש את מעמדם של עיתונאים כמחברי הכתבה.", "section": "ב. יצירת תוכן, הקשר עם הקהל", "group": "סיכונים ותפקידים מקצועיים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q12", "type": "agree", "text": "מודעות הקהל לכך שתוכן חדשותי הופק באמצעות כלי בינה מלאכותית תפחית את אמונו בעיתונות.", "section": "ב. יצירת תוכן, הקשר עם הקהל", "group": "סיכונים ותפקידים מקצועיים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q13", "type": "agree", "text": "יש לחייב מערכות חדשות להכשיר כל עיתונאי לשימוש מושכל בכלי AI.", "section": "ב. יצירת תוכן, הקשר עם הקהל", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q14", "type": "agree", "text": "יש לחייב מערכות חדשות לגלות לקהל על שימוש מהותי ב־AI בהכנת כתבה, גם אם עורך שכתב אותה במלואה.", "section": "ב. יצירת תוכן, הקשר עם הקהל", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q15", "type": "agree", "text": "יש להתיר למערכות חדשות לשחזר עדות בסרטון AI ריאליסטי להמחשת כתבה, בתנאי שהעדות אומתה והשחזור מסומן בבירור.", "section": "ב. יצירת תוכן, הקשר עם הקהל", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q16", "type": "agree", "text": "יש להתיר למערכות חדשות לפרסם מאמר דעה שנכתב ב־AI, בתנאי שהאדם החתום עליו מאמץ את העמדה ונושא באחריות לתוכן.", "section": "ב. יצירת תוכן, הקשר עם הקהל", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q17", "type": "agree", "text": "יש להתיר למערכות חדשות להתאים באמצעות AI את זווית ההצגה של כתבה לעמדות הפוליטיות של הקורא, כל עוד העובדות נשמרות.", "section": "ב. יצירת תוכן, הקשר עם הקהל", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q18", "type": "agree", "text": "יש להתיר למערכות חדשות להשתמש ב־AI לבחירת הכותרת הצפויה להשיג את מספר ההקלקות הגבוה ביותר.", "section": "ב. יצירת תוכן, הקשר עם הקהל", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q19", "type": "agree", "text": "שימוש תדיר בבינה מלאכותית יוביל לשימוש בחומרים המוגנים בזכויות יוצרים ללא הרשאה.", "section": "ג. הגנת מידע, בחירת כלים ושיקול דעת מקצועי", "group": "סיכונים ותפקידים מקצועיים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q20", "type": "agree", "text": "שימוש תדיר בבינה מלאכותית יוביל לפגיעה בפרטיות של אנשים.", "section": "ג. הגנת מידע, בחירת כלים ושיקול דעת מקצועי", "group": "סיכונים ותפקידים מקצועיים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q21", "type": "agree", "text": "יש לאסור על מערכות חדשות להזין חומר ממקור חסוי לכלי AI חיצוני, גם כשהספק מתחייב שלא לאמן עליו מודלים.", "section": "ג. הגנת מידע, בחירת כלים ושיקול דעת מקצועי", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q22", "type": "agree", "text": "יש לחייב מערכות חדשות לאסור שימוש בחשבונות AI פרטיים של עיתונאים כאשר סופק להם חשבון מטעם המערכת.", "section": "ג. הגנת מידע, בחירת כלים ושיקול דעת מקצועי", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q23", "type": "agree", "text": "יש לחייב מערכות חדשות לדרוש אישור מראש לכל חריגה של כתב מהנחיות AI מערכתיות קבועות (Skills).", "section": "ג. הגנת מידע, בחירת כלים ושיקול דעת מקצועי", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q24", "type": "agree", "text": "יש לחייב מערכות חדשות להשתמש במקביל בכלים של שתי חברות AI לפחות.", "section": "ג. הגנת מידע, בחירת כלים ושיקול דעת מקצועי", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q25", "type": "agree", "text": "יש לחייב מערכות חדשות לדרוש מכל כתב לציין באילו כלי AI השתמש בכל כתבה וכיצד.", "section": "ד. תיעוד, פיקוח ואכיפה", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q26", "type": "agree", "text": "יש לחייב מערכות חדשות לדרוש מכל עורך לציין באילו כלי AI השתמש בכל כתבה וכיצד.", "section": "ד. תיעוד, פיקוח ואכיפה", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q27", "type": "agree", "text": "יש לחייב מערכות חדשות לשמור את שיחות העבודה עם AI שעליהן התבסס פרסום, גם כאשר הן כוללות טיוטות שלא פורסמו.", "section": "ד. תיעוד, פיקוח ואכיפה", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q28", "type": "agree", "text": "יש להתיר למערכות חדשות לבדוק, באמצעות העורך, את שיחות העבודה של הכתב עם AI.", "section": "ד. תיעוד, פיקוח ואכיפה", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q29", "type": "agree", "text": "יש לחייב מערכות חדשות להפעיל סנקציות משמעתיות נגד עיתונאי שהפר ביודעין את מדיניות השימוש ב־AI שלהן.", "section": "ד. תיעוד, פיקוח ואכיפה", "group": "כללי מדיניות מוצעים", "min": "כלל לא מסכים/ה", "max": "מסכים/ה מאוד"}, {"id": "q30", "type": "rank", "text": "בהנחה שנקבעת מדיניות לשימוש ב־AI בעיתונות, מי ראוי להוביל את קביעתה?", "options": ["כל מערכת חדשות לעצמה", "גופים מקצועיים ארציים", "רשויות המדינה", "גופים בין־לאומיים"], "section": "ה. הגורם המוביל בקביעת המדיניות", "group": ""}];
 const MOCK = {
-  mode: "open",
+  mode: "pre", mine: {},
   attendee: { name: "נועה לוי", role: "עורכת" },
   stages: [
     { id: "s1", order: 1, title: "פתיחה: איפה אנחנו עומדים" },
@@ -586,7 +974,11 @@ const MOCK = {
 function mock(action, p) {
   return new Promise(res => setTimeout(() => {
     if (action === "submit") { MOCK.answered.push(p.stage); return res({ ok: true }); }
+    if (action === "save") { Object.assign(MOCK.mine, JSON.parse(p.answers)); return res({ ok: true, mine: Object.assign({}, MOCK.mine) }); }
     const known = MOCK.mode !== "unknown";
+    if (known && MOCK.mode === "pre") return res({ ok: true, serverNow: Date.now(), attendee: MOCK.attendee, stages: [{ id: "pre", order: 0, title: "שאלון לפני הכנס" }],
+      answered: [], mine: Object.assign({}, MOCK.mine),
+      stage: { id: "pre", order: 0, title: "שאלון לפני הכנס", long: true, closesAt: Date.now() + 9e8, questions: PRE_QS } });
     const open = MOCK.mode === "open";
     res({
       ok: true, serverNow: Date.now(),
@@ -600,7 +992,7 @@ function mock(action, p) {
 if (DEMO) {
   if (!code) code = "K7Q2M";
   const box = $("demo"); box.hidden = false;
-  const modes = [["open", "Open stage"], ["waiting", "Standby"], ["unknown", "Unknown code"]];
+  const modes = [["pre", "Questionnaire"], ["waiting", "Closed"], ["unknown", "Unknown code"]];
   const paint = () => box.innerHTML = `<span class="mono">Demo</span>` + modes.map(([k, l]) => `<button data-mode="${k}" aria-pressed="${MOCK.mode === k}">${l}</button>`).join("");
   paint();
   box.addEventListener("click", e => {
