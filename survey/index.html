@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>סקר הקהל · עיתונות בעידן ה־AI</title>
+<title>סקר מומחים · עיתונות בעידן ה־AI</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -181,6 +181,11 @@ body {
   background: transparent; border: 0; padding: 6px 0; outline: none; caret-color: var(--accent); }
 .code-row input::placeholder { color: var(--panel-muted); opacity: .5; }
 
+.lbl { display: block; font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0; color: var(--muted); }
+.panel-title .lbl { color: var(--accent); margin-bottom: 2px; }
+.legend .lbl { color: var(--accent); margin-bottom: 6px; }
+.consent-note { margin: 16px 0 0; padding: 12px 14px; border-radius: 14px; background: var(--accent-soft); color: var(--panel-fg); font-size: 14.5px; line-height: 1.55; }
+.consent-note b { font-weight: 700; }
 .privacy { margin: 16px 0 0; color: var(--muted); font-size: 13px; text-align: center; text-wrap: balance; }
 
 footer { border-top: 1px solid var(--line); margin-top: 32px; padding: 20px 18px max(20px, env(safe-area-inset-bottom, 0px));
@@ -279,7 +284,7 @@ footer { border-top: 1px solid var(--line); margin-top: 32px; padding: 20px 18px
   <div class="wrap">
     <header class="head" id="head">
       <p class="eyebrow dotfont">AI × JOURNALISM 2026</p>
-      <h1><span class="dot-text">סקר הקהל</span></h1>
+      <h1><span class="dot-text">סקר מומחים</span></h1>
       <canvas class="dot-canvas" id="headDots" aria-hidden="true"></canvas>
       <p class="sub">עיתונות בעידן ה־AI · <span dir="ltr">2.12.2026</span></p>
     </header>
@@ -483,10 +488,10 @@ const main = $("main");
 function idBar() {
   if (!S || !S.attendee) return "";
   return `<div class="idbar fade">
-    <span class="mono">Participant</span>
+    <span class="lbl">משתתף/ת</span>
     <b>${esc(S.attendee.name)}</b>
-    <span class="role">${esc(S.attendee.role || "")}</span>
-    <div class="code"><span class="mono">Code</span><br><span class="dotfont">${esc(code)}</span>
+    <span class="role">${esc(roleLabel(S.attendee.role))}</span>
+    <div class="code"><span class="lbl">קוד אישי</span><span class="dotfont">${esc(code)}</span>
       <button class="switch" data-act="switch">לא אני</button></div>
   </div>`;
 }
@@ -562,14 +567,26 @@ function render() {
   }
   else { // waiting
     html = idBar() + `<div class="panel textured fade"><div class="state">
-      <span class="badge muted">--:--</span><h2>אין שאלון פתוח כרגע</h2>
-      <p>כשייפתח שאלון, הוא יופיע כאן, באותו קישור.</p></div></div>`;
+      <span class="badge muted">···</span><h2>השאלון סגור</h2>
+      <p>תודה לכל מי שענו. התוצאות המצרפיות יוצגו בכנס.</p></div></div>`;
   }
   if (S && S.attendee && view !== "enter" && view !== "unknown") html += privacyHtml();
   main.innerHTML = html;
   const input = $("codeInput"); if (input && view === "unknown") input.select();
 }
 
+
+const ROLE_LABELS = {
+  "כתב": "כתב/ת", "עורך": "עורך/ת", "עורך ראשי": "עורך/ת ראשי/ת", "מנהל במערכת חדשות": "מנהל/ת במערכת חדשות",
+  "מו״ל": "מו״ל/ית", "מו\"ל": "מו״ל/ית", "בעלים של ארגון תקשורת או יזם": "בעלים של ארגון תקשורת או יזם/ית",
+  "מגיש או שדרן": "מגיש/ה או שדרן/ית", "מפיק": "מפיק/ה", "תחקירן": "תחקירן/ית", "צלם או עורך וידאו": "צלם/ת או עורך/ת וידאו",
+  "איש AI או דאטה": "עובד/ת בתחום AI או דאטה", "איש טכנולוגיה או פיתוח מוצר": "עובד/ת בתחום טכנולוגיה או פיתוח מוצר",
+  "מנהל תוכן או דיגיטל": "מנהל/ת תוכן או דיגיטל", "מנהל שיווק או תקשורת": "מנהל/ת שיווק או תקשורת",
+  "יועץ משפטי או עורך דין": "יועץ/ת משפטי/ת או עורך/ת דין", "רגולטור או איש פיקוח": "רגולטור/ית או גורם פיקוח",
+  "קובע מדיניות או עובד ציבור": "קובע/ת מדיניות או עובד/ת ציבור", "חוקר או מרצה": "חוקר/ת או מרצה", "סטודנט": "סטודנט/ית",
+  "נציג ארגון מקצועי או חברה אזרחית": "נציג/ה של ארגון מקצועי או חברה אזרחית",
+};
+const roleLabel = r => { r = String(r || "").trim(); return r === "אחר" ? "" : (ROLE_LABELS[r] || r); };
 
 function privacyHtml() {
   return `<p class="privacy">התשובות נשמרות יחד עם פרטי ההרשמה שלך. בניתוח המחקרי ייכללו רק מי שהסכימו לכך בהרשמה. בכנס יוצגו נתונים מצרפיים בלבד, ללא שמות.</p>`;
@@ -633,7 +650,7 @@ function preHtml() {
   const left = sec.items.filter(q => !isAnswered(q)).length;
   return idBar() + `<div class="panel textured fade">
     <div class="panel-top" style="display:block">
-      <h2 class="panel-title"><span class="mono">Part ${pad(step)} / ${pad(n)}</span>${t.letter ? `${esc(t.letter)}. ` : ""}${esc(t.name)}</h2>
+      <h2 class="panel-title"><span class="lbl">חלק ${step} מתוך ${n} · ${sec.items.length === 1 ? "שאלה אחת" : `${sec.items.length} שאלות`} בחלק הזה</span>${t.letter ? `${esc(t.letter)}. ` : ""}${esc(t.name)}</h2>
       <div class="progress" style="--n:${n}" aria-hidden="true">${secs.map((x, i) => `<i class="${i < step ? "on" : ""}"></i>`).join("")}</div>
     </div>
     ${items}
@@ -650,18 +667,19 @@ function preHtml() {
 function introHtml(n) {
   const started = answeredQs() > 0;
   return `<div class="panel textured fade intro">
-    <div class="panel-top"><h2 class="panel-title"><span class="mono">Pre-conference survey</span>בינה מלאכותית במערכות חדשות</h2></div>
+    <div class="panel-top"><h2 class="panel-title"><span class="lbl">שאלון לפני הכנס</span>בינה מלאכותית במערכות חדשות</h2></div>
     <p class="lead">מטרת השאלון היא לבחון עמדות לגבי השימוש בבינה מלאכותית (AI) במערכות חדשות ולגבי המדיניות שצריכה להסדיר אותו.</p>
     <p>מסגרת ההתייחסות היא שימוש תדיר של עיתונאים ועורכים בכלי AI לאיסוף ולעיבוד מידע וליצירת תוכן חדשותי.</p>
     <p>בחלקים א׳–ד׳ ציינו את מידת הסכמתכם עם כל היגד. בהיגדי המדיניות התייחסו למה שראוי לחייב או להתיר במערכות חדשות, ולא לנוהג הקיים בארגונכם.</p>
-    <div class="legend"><span class="mono">Scale</span><ol>
+    <div class="legend"><span class="lbl">הסולם</span><ol>
       <li><span class="dotfont">1</span>כלל לא מסכים/ה</li>
       <li><span class="dotfont">2</span>לא מסכים/ה</li>
       <li><span class="dotfont">3</span>לא מסכים/ה ולא מתנגד/ת</li>
       <li><span class="dotfont">4</span>מסכים/ה</li>
       <li><span class="dotfont">5</span>מסכים/ה מאוד</li>
       <li><span class="na">ל״ה</span>לא ניתן להעריך</li></ol></div>
-    <div class="meta"><span>${totalQs()} שאלות ב־${n} חלקים</span><span>כ־7 דקות</span><span>אפשר לעצור ולהמשיך מאותו קישור</span></div>
+    <p class="consent-note"><b>השאלון אינו אנונימי.</b> התשובות נשמרות יחד עם שמך ופרטי ההרשמה. בכנס יוצגו נתונים מצרפיים בלבד, ללא שמות וללא קבוצות קטנות שאפשר לזהות בהן אנשים. בניתוח המחקרי ייכללו רק מי שהסכימו לכך בהרשמה.</p>
+    <div class="meta"><span>${totalQs()} שאלות ב־${n} חלקים</span><span>כ־3 דקות</span><span>אפשר לעצור ולהמשיך מאותו קישור</span></div>
     <button class="btn" data-act="start"><span>${started ? "המשך מהמקום שעצרתם" : "התחלה"}</span>${ARROW}</button>
   </div>`;
 }
@@ -689,9 +707,11 @@ function preQuestionHtml(q, num) {
       <div class="rank-scale bottom" aria-hidden="true"><span>מתאים פחות להוביל</span></div>
       <div class="rank-foot">${done
         ? `<span class="rank-ok">הדירוג נקלט בסדר הזה. אפשר להמשיך להזיז.</span>`
-        : `<span>${m ? `סומנו ${m} מתוך ${n}. לחצו על הבא בתור.` : "עוד לא סומן אף גורם."}</span>
-           <button class="btn ghost small" data-act="rank-confirm" data-q="${esc(q.id)}"><span>הסדר הנוכחי משקף את עמדתי</span></button>
-           ${m ? `<button class="linkbtn" data-act="rank-reset" data-q="${esc(q.id)}">ניקוי הסימון</button>` : ""}`}</div>
+        : m
+          ? `<span>סומנו ${m} מתוך ${n}. לחצו על הבא בתור.</span>
+             <button class="linkbtn" data-act="rank-reset" data-q="${esc(q.id)}">ניקוי הסימון</button>`
+          : `<span>אם הסדר שמוצג עכשיו כבר משקף את עמדתך:</span>
+             <button class="btn ghost small" data-act="rank-confirm" data-q="${esc(q.id)}"><span>הסדר הזה משקף את עמדתי</span></button>`}</div>
       <p class="note">הדירוג מתייחס להובלה ואינו שולל שיתוף פעולה בין הגורמים.</p>
       <p class="sr-only" aria-live="polite" id="rank-live"></p></div>`;
   }
